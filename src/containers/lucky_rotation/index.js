@@ -778,8 +778,8 @@ class Lucky_Rotation extends React.Component {
 					<p class="font-iCielPantonBlack font14">Thẻ Scoin 10k > 1 Chìa khóa <br />
 					Thẻ Scoin 20k > 2 Chìa khóa <br />
 					Thẻ Scoin 50k > 5 Chìa khóa</p>
-					<p><a href="#" title="Thêm chìa khóa" class="font-iCielPantonLight font14" data-toggle="modal" data-target="#ThemLuot">Thêm chìa khóa <img src={key_yellow_icon} width="16" class="img-fluid" /></a></p>
-        			<p><a href="#" title="Xem kho báu" data-toggle="modal" data-target="#GiaiThuong"><img src={btn_xem_kho_bau} width="150" class="img-fluid" /></a></p>
+					<p><a href="#" title="Thêm chìa khóa" class="font-iCielPantonLight font14" data-toggle="modal" data-target="#ThemLuot" >Thêm chìa khóa <img src={key_yellow_icon} width="16" class="img-fluid" /></a></p>
+        			<p id="VinhDanh"><a href="#" title="Xem kho báu" data-toggle="modal" data-target="#GiaiThuong" onClick={this.openGiaiThuong}><img src={btn_xem_kho_bau} width="150" class="img-fluid" /></a></p>
 					
 				</div>
 			</div>
