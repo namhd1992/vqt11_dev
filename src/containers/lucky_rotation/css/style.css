@@ -50,7 +50,7 @@ body {background-color: #f5e4b9;}
 .float-right {position:fixed; right:0; top: 30%; background:url(../images/bg-float-right.png) no-repeat; width: 90px; height: 219px; z-index: 9999}
 .text-float-right li a {width: 70px; height: 90px; display:block; margin-left: 10px;}
 h2.font-iCielPantonBlack {line-height: 1.8;}
-.thele {position: relative; top: -200px;}
+.thele {position: relative; margin-top: -200px;}
 .step-thele {background:url(../images/bg-the-le.png) no-repeat; width: 1000px; height: 402px;}
 .step-bg {background:url(../images/bg-step.png) no-repeat; width: 270px; height: 67px; line-height: 67px}
 .step-thele .bg-the-le-mobile {width: 100%; height: auto; opacity:0; display: none;}
@@ -107,6 +107,14 @@ h2.font-iCielPantonBlack {line-height: 1.8;}
   #button.show {
 	opacity: 1;
 	visibility: visible;
+  }
+  .center-screen {
+	position: absolute;
+	float: left;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	display:block
   }
 
 
@@ -171,7 +179,7 @@ h2.font-iCielPantonBlack {line-height: 1.8;}
 .font18 {font-size: 16px;}
 .font16 {font-size: 14px;}
 h2.font-iCielPantonBlack {font-size: 26px;}
-.thele {position: relative; top: -300px;}
+.thele {position: relative; margin-top: -300px;}
 .button-group {width: 80%;}
 .button-group .img-75 {width: 75%;}
 .footer .img-mobile {width: 40%;}
