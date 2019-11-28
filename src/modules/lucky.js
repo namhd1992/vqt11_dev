@@ -15,6 +15,7 @@ export const LUCKY_HISTORY_TU_DO='lucky/LUCKY_HISTORY_TU_DO';
 export const LUCKY_VINH_DANH='lucky/LUCKY_VINH_DANH';
 export const LUCKY_CODE_BONUS='lucky/LUCKY_CODE_BONUS';
 export const LUCKY_COUNT_BONUS='lucky/LUCKY_COUNT_BONUS';
+export const LUCKY_LIST_KEY='lucky/LUCKY_LIST_KEY';
 
 const initialState = {
 	data: [], 
@@ -106,6 +107,12 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				dataCountBonus: action.data,
+				waiting: false
+			}
+		case LUCKY_LIST_KEY:
+			return {
+				...state,
+				dataListKey: action.data,
 				waiting: false
 			}
 		default:
@@ -345,6 +352,32 @@ export const getRotationDetailDataUser = (token, id) => {
 		})
 	}
 }
+
+export const getKeys = (token, id, limit, offset) => {
+	var header = {
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": "bearer " + token,
+		}
+	}
+	return dispatch => {
+		dispatch({
+			type: LUCKY_REQUEST
+		})
+		var url = Ultilities.base_url() + "lucky-spin-history/buy-turn?lucky_spin_id=" + id + "&limit=" + limit + "&offset=" + offset;
+		return axios.get(url, header).then(function (response) {
+			dispatch({
+				type: LUCKY_LIST_KEY,
+				data: response.data
+			})
+		}).catch(function (error) {
+			dispatch({
+				type: SERVER_ERROR
+			})
+		})
+	}
+}
+
 
 export const getTuDo = (token, id, limit, offset) => {
 	var header = {

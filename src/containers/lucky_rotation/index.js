@@ -14,6 +14,7 @@ import {
 	getCodeBonus,
 	getVinhDanh,
 	getCountBonus,
+	getKeys,
 } from '../../modules/lucky'
 import {
 	getData
@@ -85,7 +86,6 @@ class Lucky_Rotation extends React.Component {
 		super(props);
 		this.state = {
 			limit: 10,
-			numberShow:15,
 			isAll:true,
 			stop:true,
 			auto: false,
@@ -140,10 +140,12 @@ class Lucky_Rotation extends React.Component {
 			status_sukien:'Sự kiện đang diễn ra còn',
 			turnsBuyInfo:[],
 			soinValue:0,
+			hideNav:false,
 		};
 	}
 	componentWillMount(){
 		window.removeEventListener('scroll', this.handleScroll);
+		this.resize()
 	}
 
 	componentDidMount(){
@@ -191,23 +193,33 @@ class Lucky_Rotation extends React.Component {
 		this.setState({ auto : !this.state.auto});
 	}
 
+	resize() {
+		let isMobile = (window.innerWidth <= 760);
+		if (isMobile) {
+			this.setState({limit:5});
+		}else{
+			this.setState({limit:10});
+		}
+	}
+
+	onResize=()=>{
+		this.resize()
+	}
+
 	getStatus=(luckySpin)=>{
 		var start=luckySpin.startDate;
 		var end=luckySpin.endDate;
 		var time=Date.now();
 
 		if (time < start) {
-			console.log('AAAAAAAAAAA')
 			this.timeRemain(start)
 			this.setState({ status_sukien: 'Sự kiện chưa diễn ra.', message_status:"Sự kiện chưa diễn ra."});
 		}
 		if (time > start && time < end) {
-			console.log('BBBBBBBBBB')
 			this.timeRemain(end)
 			this.setState({ status_sukien: "Sự kiện đang diễn ra còn"});
 		}
 		if (time > end) {
-			console.log('CCCCCCCCC')
 			this.setState({ status_sukien: "Sự kiện đã kết thúc.", message_status:"Sự kiện đã kết thúc."});
 		}
 	}
@@ -476,11 +488,11 @@ class Lucky_Rotation extends React.Component {
 	getKey=(user, pageNumber)=>{
 		const {luckySpin, limit}=this.state;
 		// var offsetTuDo=(pageNumber-1)*limit;
-		this.props.getHistoryTuDo(user.access_token, luckySpin.id, limit, (pageNumber-1)).then(()=>{
-			var data=this.props.dataHistoryTuDo;
+		this.props.getKeys(user.access_token, luckySpin.id, limit, (pageNumber-1)).then(()=>{
+			var data=this.props.dataListKey;
 			if(data!==undefined){
 				if(data.status==='01'){
-					this.setState({listHistory:data.data, countKey: data.totalRecords})
+					this.setState({listKey:data.data, countKey: data.totalRecords})
 				}else{
 					$('#myModal11').modal('show');
 					this.setState({message_error:'Chưa tải được dữ liệu. Vui lòng thử lại'})
@@ -491,25 +503,6 @@ class Lucky_Rotation extends React.Component {
 			}
 		});
 	}
-
-	// getBonus=(pageNumber)=>{
-	// 	const {limit}=this.state;
-	// 	this.props.getVinhDanh(119, limit, (pageNumber-1)).then(()=>{
-	// 		var data=this.props.dataVinhDanh;
-	// 		if(data!==undefined){
-	// 			if(data.status==='01'){	
-	// 				this.setState({listCodeBonus:data.data, countCodeBonus:data.totalRecords})
-	// 			}else{
-	// 				$('#myModal11').modal('show');
-	// 				this.setState({message_error:'Không lấy được dữ liệu bảng vinh danh.'})
-	// 			}
-	// 		}else{
-	// 			// $('#myModal12').modal('show');
-	// 			this.setState({server_err:true})
-	// 		}
-	// 	});
-	
-	// }
 
 	getVinhDanh=(pageNumber)=>{
 		const {limit}=this.state;
@@ -879,7 +872,7 @@ class Lucky_Rotation extends React.Component {
 			</div>
 
 			{/* The Modal Phần thưởng */}
-			<div class="modal fade" id="GiaiThuong">
+			<div class="modal fade" data-keyboard="false" data-backdrop="static" id="GiaiThuong">
 				<div class="modal-dialog">
 					<div class="modal-content bg-modal-content border-0" style={{marginTop: 60}}>
 					<div class="modal-header border-bottom-0">
@@ -971,7 +964,7 @@ class Lucky_Rotation extends React.Component {
 
 
 			{/* The Modal Lich su */}
-			<div class="modal fade" id="LichSu">
+			<div class="modal fade" id="LichSu" data-keyboard="false" data-backdrop="static" style={{zIndex:100001}}>
 				<div class="modal-dialog">
 					<div class="modal-content bg-modal-content border-0">
 					<div class="modal-header border-bottom-0">
@@ -1011,7 +1004,7 @@ class Lucky_Rotation extends React.Component {
 									<ul class="pagination justify-content-center pag-custom mt-4">
 										<Pagination
 											activePage={activeBonus}
-											itemsCountPerPage={10}
+											itemsCountPerPage={5}
 											totalItemsCount={countCodeBonus}
 											pageRangeDisplayed={numberPage}
 											lastPageText={'Trang cuối'}
@@ -1078,7 +1071,7 @@ class Lucky_Rotation extends React.Component {
 									<ul class="pagination justify-content-center pag-custom mt-4">
 										<Pagination
 											activePage={activeRuong}
-											itemsCountPerPage={10}
+											itemsCountPerPage={5}
 											totalItemsCount={countRuong}
 											pageRangeDisplayed={numberPage}
 											lastPageText={'Trang cuối'}
@@ -1129,13 +1122,13 @@ class Lucky_Rotation extends React.Component {
 									<table class="table mx-auto tbl-bang-vinh-danh-mobile text-center">
 										<thead class="font-iCielPantonLight font-weight-bold">
 										<tr>
-											<th><p class="card-text font-iCielPantonBlack text-brown-shadow font16">STT/Số lượng/Thời gian</p></th>
+											<th><p class="card-text font-iCielPantonBlack text-brown-shadow font16">Giá trị/Số lượng/Thời gian</p></th>
 										</tr>
 										</thead>
 										<tbody>
 											{listKey.map((obj, key) => (
 												<tr key={key}>
-													<td class="font14"><strong>{obj.userName}</strong> <br />{obj.itemName}<br />{obj.date}</td>
+													<td class="font14"><strong>{obj.cardValue}</strong> <br />{obj.receivedTurn}<br />{obj.date}</td>
 												</tr>
 											))}
 										
@@ -1144,7 +1137,7 @@ class Lucky_Rotation extends React.Component {
 									<ul class="pagination justify-content-center pag-custom mt-4">
 										<Pagination
 											activePage={activeKey}
-											itemsCountPerPage={10}
+											itemsCountPerPage={5}
 											totalItemsCount={countKey}
 											pageRangeDisplayed={numberPage}
 											lastPageText={'Trang cuối'}
@@ -1159,7 +1152,7 @@ class Lucky_Rotation extends React.Component {
 									<table class="table table-borderless text-center mb-2">
 										<thead>
 										<tr>
-											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">STT</p></th>
+											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Giá trị</p></th>
 											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Số lượng</p></th>
 											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Thời gian</p></th>
 										</tr>
@@ -1167,8 +1160,8 @@ class Lucky_Rotation extends React.Component {
 										<tbody>
 											{listKey.map((obj, key) => (
 												<tr key={key}>
-													<td className="border-right-0">{obj.userName}</td>
-													<td className="border-left-0 border-right-0">{obj.itemName}</td>
+													<td className="border-right-0">{obj.cardValue}</td>
+													<td className="border-left-0 border-right-0">{obj.receivedTurn}</td>
 													<td className="border-left-0">{obj.date}</td>
 												</tr>
 											))}
@@ -1447,6 +1440,7 @@ const mapStateToProps = state => ({
 	dataDetail: state.lucky.dataDetail,
 	dataTurn: state.lucky.dataTurn,
 	dataTuDo: state.lucky.dataTuDo,
+	dataListKey: state.lucky.dataListKey,
 	dataCountBonus:state.lucky.dataCountBonus,
 	dataHistoryTuDo: state.lucky.dataHistoryTuDo,
 	dataVinhDanh: state.lucky.dataVinhDanh,
@@ -1467,6 +1461,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 	getTuDo,
 	getCodeBonus,
 	getVinhDanh,
+	getKeys,
 }, dispatch)
 
 
