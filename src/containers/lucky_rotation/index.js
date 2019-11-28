@@ -137,7 +137,7 @@ class Lucky_Rotation extends React.Component {
 			server_err:false,
 			user:{},
 			xacthuc:false,
-			status_sukien:'Sự kiện đang diễn ra còn',
+			status_sukien:'',
 			turnsBuyInfo:[],
 			soinValue:0,
 			hideNav:false,
@@ -156,7 +156,7 @@ class Lucky_Rotation extends React.Component {
 				if(data!==undefined){
 					if(data.status==='01'){
 						this.getStatus(data.data.luckySpin);
-						this.setState({userTurnSpin:data.data.userTurnSpin, user:user, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), turnsBuyInfo:data.data.userTurnSpin.turnsBuyInfo, isLogin:true})
+						this.setState({userTurnSpin:data.data.userTurnSpin, user:user, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), turnsBuyInfo:data.data.userTurnSpin.turnsBuyInfo.turnCanBuy, isLogin:true})
 					}else{
 						// $('#myModal11').modal('show');
 						this.setState({message_error:'Không lấy được dữ liệu người dùng. Vui lòng tải lại trang.'})
@@ -276,7 +276,7 @@ class Lucky_Rotation extends React.Component {
 						if(data!==undefined){
 							if(data.status ==="01"){
 								if(auto){
-									list.push(data.data.item.name);
+									list.push(data.data.item.description);
 									this.getDetailData()
 									_this.setState({data_auto: list});
 								}else{
@@ -290,7 +290,7 @@ class Lucky_Rotation extends React.Component {
 										this.getDetailData();
 										$('#Khobau').modal('hide');
 										_this.setState({itemBonus: data.data.item});
-									}, 1000);
+									}, 1700);
 									
 								}	
 								
@@ -332,26 +332,31 @@ class Lucky_Rotation extends React.Component {
 
 
 	autoOpen=()=>{
-		const {turnsFree, luckySpin}=this.state
+		const {turnsFree, luckySpin}=this.state;
+		var user = JSON.parse(localStorage.getItem("user"));
 		var time=Date.now();
-		if(time < luckySpin.endDate){
-			if(turnsFree>0){
-				$('#Khobau').modal('show');
-				setTimeout(() => {
-					$('#myModal9').modal('show');
-					this.setState({auto:true},()=>{
-						this.start()
-					});
-					$('#Khobau').modal('hide');
-				}, 1000);
-				
+		if (user !== null) {
+			if(time < luckySpin.endDate){
+				if(turnsFree>0){
+					$('#Khobau').modal('show');
+					setTimeout(() => {
+						$('#myModal9').modal('show');
+						this.setState({auto:true},()=>{
+							this.start()
+						});
+						$('#Khobau').modal('hide');
+					}, 1700);
+					
+				}else{
+					$('#myModal6').modal('show');
+				}
 			}else{
-				$('#myModal6').modal('show');
+				this.setState({message_status:"Vòng quay đã kết thúc."},()=>{
+					$('#myModal8').modal('show');
+				})
 			}
-		}else{
-			this.setState({message_status:"Vòng quay đã kết thúc."},()=>{
-				$('#myModal8').modal('show');
-			})
+		} else {
+			$('#myModal5').modal('show');
 		}
 	}
 
@@ -506,7 +511,7 @@ class Lucky_Rotation extends React.Component {
 
 	getVinhDanh=(pageNumber)=>{
 		const {limit}=this.state;
-		this.props.getVinhDanh(119, limit, (pageNumber-1)).then(()=>{
+		this.props.getVinhDanh(119, 10, (pageNumber-1)).then(()=>{
 			var data=this.props.dataVinhDanh;
 			var n=10-data.data.length;
 			var listEmpty=[];
@@ -766,12 +771,12 @@ class Lucky_Rotation extends React.Component {
 						</div>
 					</div>
 					<h4 class="font18 font-iCielPantonLight font-weight-bold pt-3">Bảng quy đổi chìa khóa</h4>
-					<h4 class="font16 font-iCielPantonLight pt-2">Cách 1: Nạp Game từ ví Scoin (không giới hạn số lần nạp) <br /><span class="font-iCielPantonBlack font14">Nạp ví Scoin -> Game: cứ 50,000 Scoin sẽ nhận 1 Chìa khóa mở rương báu</span></h4>
+					<h4 class="font16 font-iCielPantonLight pt-2">Cách 1: Nạp Game từ ví Scoin (không giới hạn số lần nạp) <br /><span class="font-iCielPantonBlack font16">Nạp ví Scoin -> Game: cứ 50,000 Scoin sẽ nhận 1 Chìa khóa mở rương báu</span></h4>
 					<h4 class="font16 font-iCielPantonLight font-weight-bold pt-3">Cách 2: Dùng thẻ Scoin mua trực tiếp Chìa khóa <br />Mỗi tài khoản Scoin chỉ được mua 10 Chìa khóa/ngày</h4>
-					<p class="font-iCielPantonBlack font14">Thẻ Scoin 10k > 1 Chìa khóa <br />
+					<p class="font-iCielPantonBlack font16">Thẻ Scoin 10k > 1 Chìa khóa <br />
 					Thẻ Scoin 20k > 2 Chìa khóa <br />
 					Thẻ Scoin 50k > 5 Chìa khóa</p>
-					<p><a href="#" title="Thêm chìa khóa" class="font-iCielPantonLight font14" data-toggle="modal" data-target="#ThemLuot" >Thêm chìa khóa <img src={key_yellow_icon} width="16" class="img-fluid" /></a></p>
+					<p><a href="#" title="Thêm chìa khóa" class="font-iCielPantonLight font16" data-toggle="modal" data-target="#ThemLuot" >Thêm chìa khóa <img src={key_yellow_icon} width="16" class="img-fluid" /></a></p>
         			<p id="VinhDanh"><a href="#" title="Xem kho báu" data-toggle="modal" data-target="#GiaiThuong" onClick={this.openGiaiThuong}><img src={btn_xem_kho_bau} width="150" class="img-fluid" /></a></p>
 					
 				</div>
@@ -791,9 +796,7 @@ class Lucky_Rotation extends React.Component {
 						<tbody>
 							{listVinhDanh.map((obj, key) => (
 								<tr key={key}>
-									<td className="border-right-0">{obj.userName}</td>
-									<td className="border-left-0 border-right-0">{obj.itemName}</td>
-									<td className="border-left-0">{obj.date}</td>
+									<td><strong>{obj.userName}</strong> <br />{obj.itemName}<br />{obj.date}</td>
 								</tr>
 							))}
 						</tbody>
@@ -934,29 +937,28 @@ class Lucky_Rotation extends React.Component {
 			<div class="modal fade" id="MuaChiaKhoa">
 				<div class="modal-dialog">
 					<div class="modal-content bg-modal-content border-0">
-					<div class="modal-header border-bottom-0">
-						<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
-					</div>
-					<div class="modal-body">
-						<p class="font-iCielPantonBlack text-brown">Mua chìa khóa bằng thẻ Scoin các mệnh giá:</p>
-						<p class="font-iCielPantonBlack font14 text-center">Thẻ Scoin 10k > 1 Chìa khóa <img src={key_yellow_icon} width="16" class="img-fluid" /> <br />
-						Thẻ Scoin 20k > 2 Chìa khóa <img src={key_yellow_icon} width="16" class="img-fluid" /> <br />
-						Thẻ Scoin 50k > 5 Chìa khóa <img src={key_yellow_icon} width="16" class="img-fluid" /></p>
-						<div class="alert alert-giaithuong font16">
-							<div class="row">
-								<div class="col-7 px-2">
-								<p class="m-0 font-iCielPantonBlack text-brown">Hôm nay có thể mua:<img src={key_yellow_icon} width="16" class="img-fluid" /></p>
-								</div>
-								<div class="col-5 px-1 text-right">
-									<p class="p-0 m-0"><span class="font-iCielPantonBlack">03 Chìa khóa</span> <img src={key_yellow_icon} width="16" class="img-fluid" /></p>
-								</div> 
-							</div>           
-						</div>        
-						<div class="mx-auto">
-							<p class="text-center w-50 mx-auto mt-3"><a href="#" title="Xác nhận mua"><img src={btn_xac_nhan_mua} class="img-fluid" /></a></p>
+						<div class="modal-header border-bottom-0">
+							<button type="button" class="close" data-dismiss="modal"><img src={close_icon} class="img-fluid" /></button>
 						</div>
-						
-					</div>	  
+						<div class="modal-body">
+							<p class="font-iCielPantonBlack text-brown">Mua chìa khóa bằng thẻ Scoin các mệnh giá:</p>
+							<p class="font-iCielPantonBlack font16 text-center">Thẻ Scoin 10k > 1 Chìa khóa <img src={key_yellow_icon} width="16" class="img-fluid" /> <br />
+							Thẻ Scoin 20k > 2 Chìa khóa <img src={key_yellow_icon} width="16" class="img-fluid" /> <br />
+							Thẻ Scoin 50k > 5 Chìa khóa <img src={key_yellow_icon} width="16" class="img-fluid" /></p>
+							<div class="alert alert-giaithuong font16">
+								<div class="row">
+									<div class="col-7 px-2">
+									<p class="m-0 font-iCielPantonBlack text-brown">Hôm nay có thể mua:</p>
+									</div>
+									<div class="col-5 px-1 text-right">
+										<p class="p-0 m-0"><span class="font-iCielPantonBlack text-dark">{turnsBuyInfo} Chìa khóa</span> <img src={key_yellow_icon} width="16" class="img-fluid" /></p>
+									</div> 
+								</div>           
+							</div>        
+							<div class="mx-auto">
+								<p class="text-center w-50 mx-auto mt-3"><a href="#" title="Xác nhận mua"><img src={btn_xac_nhan_mua} class="img-fluid" /></a></p>
+							</div>
+						</div>	  
 					</div>
 				</div>
 				</div>
@@ -996,7 +998,7 @@ class Lucky_Rotation extends React.Component {
 										<tbody>
 											{listCodeBonus.map((obj, key) => (
 												<tr key={key}>
-													<td class="font14"><strong>{obj.userName}</strong> <br />{obj.itemName}<br />{obj.date}</td>
+													<td class="font16"><strong>{obj.userName}</strong> <br />{obj.itemName}<br />{obj.date}</td>
 												</tr>
 											))}
 										</tbody>
@@ -1036,19 +1038,19 @@ class Lucky_Rotation extends React.Component {
 										</tbody>
 									</table>
 								
-								<ul class="pagination justify-content-center pag-custom">
-									<Pagination
-										activePage={activeBonus}
-										itemsCountPerPage={10}
-										totalItemsCount={countCodeBonus}
-										pageRangeDisplayed={numberPage}
-										lastPageText={'Trang cuối'}
-										firstPageText={'Trang đầu'}
-										itemClass={"page-item"}
-										linkClass={"page-link"}
-										onChange={(v) => this.handlePageChangeCodeBonus(v)}
-									/>
-								</ul>
+									<ul class="pagination justify-content-center pag-custom">
+										<Pagination
+											activePage={activeBonus}
+											itemsCountPerPage={10}
+											totalItemsCount={countCodeBonus}
+											pageRangeDisplayed={numberPage}
+											lastPageText={'Trang cuối'}
+											firstPageText={'Trang đầu'}
+											itemClass={"page-item"}
+											linkClass={"page-link"}
+											onChange={(v) => this.handlePageChangeCodeBonus(v)}
+										/>
+									</ul>
 								</div> 
 							</div>
 							<div class="tab-pane container fade" id="TMoRuong">
@@ -1062,7 +1064,7 @@ class Lucky_Rotation extends React.Component {
 										<tbody>
 											{listRuong.map((obj, key) => (
 												<tr key={key}>
-													<td class="font14"><strong>{obj.stt}</strong> <br />{obj.item_name}<br />{obj.date}</td>
+													<td class="font16"><strong>{obj.stt}</strong> <br />{obj.item_name}<br />{obj.date}</td>
 												</tr>
 											))}
 										
@@ -1122,13 +1124,13 @@ class Lucky_Rotation extends React.Component {
 									<table class="table mx-auto tbl-bang-vinh-danh-mobile text-center">
 										<thead class="font-iCielPantonLight font-weight-bold">
 										<tr>
-											<th><p class="card-text font-iCielPantonBlack text-brown-shadow font16">Giá trị/Số lượng/Thời gian</p></th>
+											<th><p class="card-text font-iCielPantonBlack text-brown-shadow font16">STT/Số lượng/Thời gian</p></th>
 										</tr>
 										</thead>
 										<tbody>
 											{listKey.map((obj, key) => (
 												<tr key={key}>
-													<td class="font14"><strong>{obj.cardValue}</strong> <br />{obj.receivedTurn}<br />{obj.date}</td>
+													<td class="font16"><strong>{obj.cardValue}</strong> <br />{obj.receivedTurn}<br />{obj.date}</td>
 												</tr>
 											))}
 										
@@ -1152,7 +1154,7 @@ class Lucky_Rotation extends React.Component {
 									<table class="table table-borderless text-center mb-2">
 										<thead>
 										<tr>
-											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Giá trị</p></th>
+											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">STT</p></th>
 											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Số lượng</p></th>
 											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Thời gian</p></th>
 										</tr>
@@ -1194,22 +1196,18 @@ class Lucky_Rotation extends React.Component {
 			<div className="modal" id="myModal4">
 			<div className="modal-dialog">
 					<div className="modal-content popup-phanthuong">
-
-
-					<div className="modal-header border-bottom-0">
-						
-						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" /></button>
-					</div>
-
-					<div className="modal-body">
-					<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 mt-n5">Chúc mừng</h2>
-						<div className="mt-2 text-center">              
-							<h5 className="text-thele lead text-center py-3">Bạn vừa tìm được <span style={{color:'red'}}>{itemBonus.name}</span> khi mở rương!</h5>
-							<h5 className="text-thele lead text-center py-3">(Phần thưởng đã được cộng trực tiếp vào ví Scoin.vn)</h5>
-							<span className="text-center">Xem <a className="underline" style={{color:"#2d9bf0", cursor:'pointer'}} onClick={()=>this.showModalCodeBonus(1)}>Lịch sử</a></span><br></br>
-							<button type="button" className="btn btn-danger mx-auto text-center my-3" onClick={this.closeModal4}>Xác nhận</button>
-						</div>       
-					</div>
+						<div className="modal-header border-bottom-0">	
+							<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" /></button>
+						</div>
+						<div className="modal-body">
+						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 mt-n5">Chúc mừng</h2>
+							<div className="mt-2 text-center">              
+								<h5 className="text-thele lead text-center py-3">Bạn vừa tìm được <span style={{color:'red'}}>{itemBonus.name}</span> khi mở rương!</h5>
+								<h5 className="text-thele lead text-center py-3">(Phần thưởng đã được cộng trực tiếp vào ví Scoin.vn)</h5>
+								<span className="text-center">Xem <a className="underline" style={{color:"#2d9bf0", cursor:'pointer'}} onClick={()=>this.showModalCodeBonus(1)}>Lịch sử</a></span><br></br>
+								<button type="button" className="btn btn-danger mx-auto text-center my-3" onClick={this.closeModal4}>Xác nhận</button>
+							</div>       
+						</div>
 
 					</div>
 				</div>
@@ -1223,11 +1221,11 @@ class Lucky_Rotation extends React.Component {
 
 					<div className="modal-header border-bottom-0">
 						
-						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" /></button>
+						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" class="img-fluid"/></button>
 					</div>
 
 					<div className="modal-body">
-					<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 mt-n5">Thông Báo</h2>
+					<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
 						<div className="mt-2 text-center">              
 							<h5 className="text-thele lead text-center py-3">Xin vui lòng đăng nhập!</h5>
 							<button type="button" className="btn btn-danger mx-auto text-center my-3" onClick={this.loginAction}>Đăng nhập</button>
@@ -1273,11 +1271,11 @@ class Lucky_Rotation extends React.Component {
 
 					<div className="modal-header border-bottom-0">
 						
-						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" /></button>
+						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" class="img-fluid"/></button>
 					</div>
 
 					<div className="modal-body">
-						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 mt-n5">Thông Báo</h2>
+						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
 						<div className="mt-2 text-center">
 							<h5 className="text-thele lead text-center py-2">Rương rỗng...</h5>              
 							<h5 className="text-thele lead text-center py-3">Chúc bạn may mắn lần sau</h5>
@@ -1310,12 +1308,12 @@ class Lucky_Rotation extends React.Component {
 
 					{/* <!-- Modal Header --> */}
 					<div className="modal-header border-bottom-0">
-						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" /></button>
+						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng"  class="img-fluid"/></button>
 					</div>
 
 					{/* <!-- Modal body --> */}
 					<div className="modal-body">
-						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 mt-n5">Thông Báo</h2>
+						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
 						<div className="table-responsive mt-2">              
 							<h5 className="text-thele lead text-center">{message_status}</h5>
 							{(xacthuc)?(<button type="button" className="btn btn-xacnhan text-white btn-block text-center py-4" onClick={()=>this.xacThuc('https://scoin.vn/cap-nhat-sdt')}>Xác Thực</button>):(<div></div>)}
@@ -1333,11 +1331,11 @@ class Lucky_Rotation extends React.Component {
 					<div className="modal-content popup-phanthuong">
 
 					<div className="modal-header border-bottom-0">
-						<button className="close" onClick={this.closePopupAuto}><img src={close_icon} alt="Đóng" /></button>
+						<button className="close"><img src={close_icon} alt="Đóng" onClick={this.closePopupAuto} class="img-fluid"/></button>
 					</div>
 
 					<div className="modal-body">
-						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 mt-n5">Kết quả mở rương báu tự động</h2>
+						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Kết quả mở rương báu tự động</h2>
 						<div className="table-responsive mt-2" style={{height:300}}>
 							<ol className="list-group list-group-flush">
 								{data_auto.map((obj, key) => (
@@ -1346,8 +1344,8 @@ class Lucky_Rotation extends React.Component {
 							</ol> 
 						
 						</div>
-						<p className="text-thele">Vào <code><label style={{cursor:'pointer'}} onClick={()=>this.showModalCodeBonus(1)}>Lịch sử</label></code> để xem chi tiết.</p>
-						<p className="text-thele text-center"><code>Đang quay tự động <span className="spinner-grow spinner-grow-sm"></span></code></p>
+						<p className="text-thele">Vào <code className="text-danger"><label style={{cursor:'pointer'}} onClick={()=>this.showModalCodeBonus(1)}>Lịch sử</label></code> để xem chi tiết.</p>
+						<p className="text-thele text-center"><code className="text-danger">Đang mở tự động <span className="spinner-grow spinner-grow-sm"></span></code></p>
 						
 					</div>
 
@@ -1362,8 +1360,8 @@ class Lucky_Rotation extends React.Component {
 
 					{/* <!-- Modal Header --> */}
 					<div className="modal-header border-bottom-0">
-						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0">Thông Báo</h2>
-						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" /></button>
+						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
+						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" class="img-fluid"/></button>
 					</div>
 
 					{/* <!-- Modal body --> */}
@@ -1382,7 +1380,7 @@ class Lucky_Rotation extends React.Component {
 
 					{/* <!-- Modal Header --> */}
 					<div className="modal-header border-bottom-0">
-						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0">Thông Báo</h2>
+						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
 						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" /></button>
 					</div>
 
