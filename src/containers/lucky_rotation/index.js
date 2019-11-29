@@ -944,7 +944,7 @@ class Lucky_Rotation extends React.Component {
 								<p class="font-iCielPantonBlack text-brown pt-5">Bạn muốn nhận thêm Chìa khóa mở rương báu Scoin?</p>
 								<p class="font-iCielPantonBlack text-brown">Nạp game từ ví Scoin được tặng Chìa khóa:
 						Cứ 50.000 Scoin sẽ nhận 1 Chìa khóa mở rương báu</p>
-								<p class="text-danger">(không giới hạn giá trị nạp & số lần nạp)</p>
+								<p style={{color:'red'}}>(không giới hạn giá trị nạp & số lần nạp)</p>
 								<div class="alert alert-giaithuong">
 									<p class="font-iCielPantonBlack text-brown">Scoin đã nạp từ ví vào Game: <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.scoinTopupWallet ? turnsBuyInfo.scoinTopupWallet.toLocaleString() : 0} Scoin</span></p>
 									<p class="font-iCielPantonBlack text-brown">Chìa khóa đã nhận: <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.turnTopupWallet ? turnsBuyInfo.turnTopupWallet.toLocaleString() : 0} Chìa khóa</span> <img src={key_yellow_icon} width="20" class="img-fluid" /></p>
