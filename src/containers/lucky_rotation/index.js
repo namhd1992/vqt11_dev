@@ -128,7 +128,7 @@ class Lucky_Rotation extends React.Component {
 			scoinCard:false,
 			inputValue: '',
 			noti_mdt:false,
-			noti_tudo:false,
+			noti_tudo:true,
 			numberPage:3,
 			message_status:'',
 			data_auto:[],
@@ -283,12 +283,18 @@ class Lucky_Rotation extends React.Component {
 									list.push(data.data.item.description);
 									this.getDetailData()
 									_this.setState({data_auto: list});
-  									elem.scrollTop = elem.scrollHeight;
+									elem.scrollTop = elem.scrollHeight;
+									if(data.data.item.type!=="ACTION"){
+										this.setState({noti_tudo:true})
+										this.getVinhDanh(1);	
+									}
 								}else{
 									$('#Khobau').modal('show');
 									setTimeout(() => {
 										if(data.data.item.type!=="ACTION"){
 											$('#myModal4').modal('show');
+											this.setState({noti_tudo:true})
+											this.getVinhDanh(1);
 										}else{
 											$('#myModal7').modal('show');
 										}
@@ -471,7 +477,7 @@ class Lucky_Rotation extends React.Component {
 			if(data!==undefined){
 				if(data.status==='01'){
 					$('#LichSu').modal('show');
-					this.setState({listCodeBonus:data.data, countCodeBonus:data.totalRecords})
+					this.setState({listCodeBonus:data.data, countCodeBonus:data.totalRecords, noti_tudo:false})
 				}else{
 					$('#myModal11').modal('show');
 					this.setState({message_error:'Chưa tải được dữ liệu. Vui lòng thử lại'})
@@ -670,7 +676,6 @@ class Lucky_Rotation extends React.Component {
 		const {soinValue,listCountBonus, listKey, activeKey, turnsBuyInfo,status_sukien, xacthuc, scoinCard,height, width, dialogLoginOpen, dialogBonus, auto, dialogWarning, textWarning, isLogin, userTurnSpin, day, hour, minute, second, code,numberPage, message_status, data_auto,message_error,
 			activeRuong, activeHistory, activeBonus, activeVinhDanh, limit, countCodeBonus, countRuong, countKey, countVinhDanh, listHistory, listCodeBonus, listRuong, listVinhDanh,itemBonus, turnsFree, noti_mdt, noti_tudo, hour_live, minute_live, second_live, user}=this.state;
 		const { classes } = this.props;
-		const notification_mdt=noti_mdt?(<span className="badge badge-pill badge-danger position-absolute noti-mdt">!</span>):(<span></span>);
 		const notification_tudo=noti_tudo?(<span className="badge badge-pill badge-danger position-absolute noti-tudo">!</span>):(<span></span>);
 		return (<div style={{backgroundColor:'#f5e4b9'}}>
 			<a href="#logo" id="button"><img src={backtotop} alt="Back to Top" width="16" /></a>
@@ -749,7 +754,7 @@ class Lucky_Rotation extends React.Component {
 					<div class="float-right">
 						<ul class="nav flex-column text-float-right">
 							<li class="mt-3"><a href="" title="Giải thưởng" data-toggle="modal"  onClick={this.openGiaiThuong}>&nbsp;</a></li>
-							<li class="mt-3"><a href="#" title="Lịch sử" data-toggle="modal"  onClick={()=>this.showModalCodeBonus(1)}>&nbsp;</a></li>
+							<li class="mt-3"><a href="#" title="Lịch sử" data-toggle="modal"  onClick={()=>this.showModalCodeBonus(1)}>&nbsp;</a>{notification_tudo}</li>
 						</ul>
 					</div>
 				</div>
@@ -1023,7 +1028,7 @@ class Lucky_Rotation extends React.Component {
 									<table class="table mx-auto tbl-bang-vinh-danh-mobile text-center">
 										<thead class="font-iCielPantonLight font-weight-bold">
 										<tr>
-											<th><p class="card-text font-iCielPantonBlack text-brown-shadow font16">Tên/Nội dung/Thời gian trúng</p></th>
+											<th><p class="card-text font-iCielPantonBlack text-brown-shadow font16">STT/Nội dung/Thời gian trúng</p></th>
 										</tr>
 										</thead>
 										<tbody>
@@ -1052,7 +1057,7 @@ class Lucky_Rotation extends React.Component {
 									<table class="table table-borderless text-center mb-2">
 										<thead>
 										<tr>
-											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Tên</p></th>
+											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">STT</p></th>
 											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Nội dung</p></th>
 											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Thời gian trúng</p></th>
 										</tr>
@@ -1155,13 +1160,13 @@ class Lucky_Rotation extends React.Component {
 									<table class="table mx-auto tbl-bang-vinh-danh-mobile text-center">
 										<thead class="font-iCielPantonLight font-weight-bold">
 										<tr>
-											<th><p class="card-text font-iCielPantonBlack text-brown-shadow font16">Nạp Game/Số lượng/Thời gian</p></th>
+											<th><p class="card-text font-iCielPantonBlack text-brown-shadow font16">Nội Dung/Số lượng/Thời gian</p></th>
 										</tr>
 										</thead>
 										<tbody>
 											{listKey.map((obj, key) => (
 												<tr key={key}>
-													<td class="font16"><strong>{obj.cardValue}</strong> <br />{obj.receivedTurn} <img src={key_yellow_icon} width="20" class="img-fluid" /><br />{obj.date}</td>
+													<td class="font16"><strong>{obj.sourceTurn}</strong> <br />{obj.receivedTurn} <img src={key_yellow_icon} width="20" class="img-fluid" /><br />{obj.date}</td>
 												</tr>
 											))}
 										
@@ -1185,7 +1190,7 @@ class Lucky_Rotation extends React.Component {
 									<table class="table table-borderless text-center mb-2">
 										<thead>
 										<tr>
-											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Nạp Game</p></th>
+											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Nội Dung</p></th>
 											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Số lượng</p></th>
 											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Thời gian</p></th>
 										</tr>
@@ -1193,7 +1198,7 @@ class Lucky_Rotation extends React.Component {
 										<tbody>
 											{listKey.map((obj, key) => (
 												<tr key={key}>
-													<td className="border-right-0">{obj.cardValue}</td>
+													<td className="border-right-0">{obj.sourceTurn}</td>
 													<td className="border-left-0 border-right-0">{obj.receivedTurn} <img src={key_yellow_icon} width="20" class="img-fluid" /></td>
 													<td className="border-left-0">{obj.date}</td>
 												</tr>
