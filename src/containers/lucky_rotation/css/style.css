@@ -117,6 +117,28 @@ h2.font-iCielPantonBlack {line-height: 1.8;}
 	display:block
   }
 
+  .btnStart:hover{
+	  opacity: 0.7;
+  }
+  .btnAuto:hover{
+	opacity: 0.7;
+  }
+  .themLuot:hover{
+	opacity: 0.7;
+  }
+  .seeBonus:hover{
+	opacity: 0.7;
+  }
+  .napGame:hover{
+	opacity: 0.7;
+  }
+  .buyKey:hover{
+	opacity: 0.7;
+  }
+  .xacNhan:hover{
+	opacity: 0.7;
+  }
+
 
 
 .carousel-fix{bottom: 0px !important; padding-bottom: 0px !important;}
