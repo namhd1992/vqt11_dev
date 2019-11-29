@@ -1369,8 +1369,8 @@ class Lucky_Rotation extends React.Component {
 							</ol> 
 						
 						</div>
-						<p className="text-thele">Vào <code className="text-danger"><label style={{cursor:'pointer'}} onClick={()=>this.showModalCodeBonus(1)}>Lịch sử</label></code> để xem chi tiết.</p>
-						<p className="text-thele text-center"><code className="text-danger">Đang mở tự động <span className="spinner-grow spinner-grow-sm"></span></code></p>
+						<p className="text-thele">Vào <code style={{color:'red'}}><label style={{cursor:'pointer'}} onClick={()=>this.showModalCodeBonus(1)}>Lịch sử</label></code> để xem chi tiết.</p>
+						<p className="text-thele text-center"><code style={{color:'red'}}>Đang mở tự động <span className="spinner-grow spinner-grow-sm"></span></code></p>
 						
 					</div>
 
