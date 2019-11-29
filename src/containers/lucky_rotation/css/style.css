@@ -214,12 +214,14 @@ h2.font-iCielPantonBlack {font-size: 22px;}
 } */
 
 @media (max-width: 380px) {
-	.header {height: 800px}
-	.box-slider {top: 26%;}
-	.button-group {top: 45%;}
-	}
-	@media (max-width: 320px) {
-	.box-slider {top: 23%;}
-	.header {height: 750px}
-	.button-group {top: 42%;}
-	}
+.header {height: 800px}
+.box-slider {top: 26%;}
+.button-group {top: 45%;}
+}
+@media (max-width: 320px) {
+.box-slider {top: 23%;}
+.header {height: 750px}
+.button-group {top: 42%;}
+h2.font-iCielPantonBlack {font-size: 18px;}
+.box-time {left: 12%; top: 6%; width: 75% !important; transform: translate(-10%, 0);}
+}

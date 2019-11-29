@@ -156,7 +156,7 @@ class Lucky_Rotation extends React.Component {
 				if(data!==undefined){
 					if(data.status==='01'){
 						this.getStatus(data.data.luckySpin);
-						this.setState({userTurnSpin:data.data.userTurnSpin, user:user, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), turnsBuyInfo:data.data.userTurnSpin.turnsBuyInfo.turnCanBuy, isLogin:true})
+						this.setState({userTurnSpin:data.data.userTurnSpin, user:user, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), turnsBuyInfo:data.data.userTurnSpin.turnsBuyInfo, isLogin:true})
 					}else{
 						// $('#myModal11').modal('show');
 						this.setState({message_error:'Không lấy được dữ liệu người dùng. Vui lòng tải lại trang.'})
@@ -325,39 +325,48 @@ class Lucky_Rotation extends React.Component {
 	}
 
 	btnStart=()=>{
-		this.setState({data_auto:[], closeAuto:true},()=>{
-			this.start();
-		})
+		const {server_err}=this.state;
+		if(server_err){
+			$('#myModal12').modal('show');
+		}else{
+			this.setState({data_auto:[], closeAuto:true},()=>{
+				this.start();
+			})
+		}
 	}
 
 
 	autoOpen=()=>{
-		const {turnsFree, luckySpin}=this.state;
+		const {turnsFree, luckySpin, server_err}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
 		var time=Date.now();
-		if (user !== null) {
-			if(time < luckySpin.endDate){
-				if(turnsFree>0){
-					$('#Khobau').modal('show');
-					setTimeout(() => {
-						$('#myModal9').modal('show');
-						this.setState({auto:true},()=>{
-							this.start()
-						});
-						$('#Khobau').modal('hide');
-					}, 1700);
-					
+		if(server_err){
+			$('#myModal12').modal('show');
+		}else{
+			if (user !== null) {
+				if(time < luckySpin.endDate){
+					if(turnsFree>0){
+						$('#Khobau').modal('show');
+						setTimeout(() => {
+							$('#myModal9').modal('show');
+							this.setState({auto:true},()=>{
+								this.start()
+							});
+							$('#Khobau').modal('hide');
+						}, 1700);
+						
+					}else{
+						$('#myModal6').modal('show');
+					}
 				}else{
-					$('#myModal6').modal('show');
+					this.setState({message_status:"Vòng quay đã kết thúc."},()=>{
+						$('#myModal8').modal('show');
+					})
 				}
-			}else{
-				this.setState({message_status:"Vòng quay đã kết thúc."},()=>{
-					$('#myModal8').modal('show');
-				})
+			} else {
+				$('#myModal5').modal('show');
 			}
-		} else {
-			$('#myModal5').modal('show');
-		}
+		}	
 	}
 
 
@@ -441,11 +450,10 @@ class Lucky_Rotation extends React.Component {
 
 	showModalCodeBonus=(pageNumber)=>{
 		var user = JSON.parse(localStorage.getItem("user"));
+		console.log(user)
 		if(user !== null){
-			$('#LichSu').modal('show');
 			this.getBonus(user, pageNumber)
 			$('#myModal4').modal('hide');
-			$('#myModal3').modal('show');
 		}else {
 			$('#myModal5').modal('show');
 		}
@@ -457,6 +465,7 @@ class Lucky_Rotation extends React.Component {
 			var data=this.props.dataTuDo;
 			if(data!==undefined){
 				if(data.status==='01'){
+					$('#LichSu').modal('show');
 					this.setState({listCodeBonus:data.data, countCodeBonus:data.totalRecords})
 				}else{
 					$('#myModal11').modal('show');
@@ -513,14 +522,14 @@ class Lucky_Rotation extends React.Component {
 		const {limit}=this.state;
 		this.props.getVinhDanh(119, 10, (pageNumber-1)).then(()=>{
 			var data=this.props.dataVinhDanh;
-			var n=10-data.data.length;
-			var listEmpty=[];
-			for (let i = 0; i < n; i++) {
-				let obj={date: '...', description: null, itemName: '...', userName: '...'}
-				listEmpty.push(obj);
-			}
-			var listData=data.data.concat(listEmpty)
 			if(data!==undefined){
+				var n=10-data.data.length;
+				var listEmpty=[];
+				for (let i = 0; i < n; i++) {
+					let obj={date: '...', description: null, itemName: '...', userName: '...'}
+					listEmpty.push(obj);
+				}
+				var listData=data.data.concat(listEmpty)
 				if(data.status==='01'){	
 					this.setState({listVinhDanh:listData, countVinhDanh: Math.ceil(data.totalRecords/10)*10})
 				}else{
@@ -528,7 +537,7 @@ class Lucky_Rotation extends React.Component {
 					this.setState({message_error:'Không lấy được dữ liệu bảng vinh danh.'})
 				}
 			}else{
-				// $('#myModal12').modal('show');
+				$('#myModal12').modal('show');
 				this.setState({server_err:true})
 			}
 		});
@@ -537,10 +546,11 @@ class Lucky_Rotation extends React.Component {
 	openGiaiThuong=()=>{
 		// var offsetTuDo=(pageNumber-1)*limit;
 		this.props.getCountBonus().then(()=>{
-			$('#GiaiThuong').modal('show');
+			
 			var data=this.props.dataCountBonus;
 			if(data!==undefined){
 				if(data.status==='01'){
+					$('#GiaiThuong').modal('show');
 					this.setState({listCountBonus:data.data})
 				}else{
 					$('#myModal11').modal('show');
@@ -552,6 +562,15 @@ class Lucky_Rotation extends React.Component {
 			}
 		});
 		
+	}
+
+	openThemLuot=()=>{
+		var user = JSON.parse(localStorage.getItem("user"));
+		if (user !== null) {
+			$('#ThemLuot').modal('show');
+		}else {
+			$('#myModal5').modal('show');
+		}
 	}
 
 	closePopupAuto=()=>{
@@ -711,7 +730,7 @@ class Lucky_Rotation extends React.Component {
 						<a class="col-6 px-0" title="Mở tự động" onClick={this.autoOpen}><img src={btn_mo_tu_dong} class="img-fluid" /></a>
 						</p>
 						<p class="text-center">
-						<a href="" title="Thêm lượt" data-toggle="modal" data-target="#ThemLuot"><img src={btn_them_luot} class="img-fluid img-75" /></a>
+						<a href="" title="Thêm lượt" data-toggle="modal" onClick={this.openThemLuot}><img src={btn_them_luot} class="img-fluid img-75" /></a>
 						</p>
 					</div>
 					<div class="float-left">
@@ -776,8 +795,8 @@ class Lucky_Rotation extends React.Component {
 					<p class="font-iCielPantonBlack font16">Thẻ Scoin 10k > 1 Chìa khóa <br />
 					Thẻ Scoin 20k > 2 Chìa khóa <br />
 					Thẻ Scoin 50k > 5 Chìa khóa</p>
-					<p><a href="#" title="Thêm chìa khóa" class="font-iCielPantonLight font16" data-toggle="modal" data-target="#ThemLuot" >Thêm chìa khóa <img src={key_yellow_icon} width="16" class="img-fluid" /></a></p>
-        			<p id="VinhDanh"><a href="#" title="Xem kho báu" data-toggle="modal" data-target="#GiaiThuong" onClick={this.openGiaiThuong}><img src={btn_xem_kho_bau} width="150" class="img-fluid" /></a></p>
+					<p><a href="#" title="Thêm chìa khóa" class="font-iCielPantonLight font16" data-toggle="modal" onClick={this.openThemLuot}>Thêm chìa khóa <img src={key_yellow_icon} width="16" class="img-fluid" /></a></p>
+        			<p id="VinhDanh"><a href="#" title="Xem kho báu" data-toggle="modal" onClick={this.openGiaiThuong}><img src={btn_xem_kho_bau} width="150" class="img-fluid" /></a></p>
 					
 				</div>
 			</div>
@@ -921,9 +940,9 @@ class Lucky_Rotation extends React.Component {
 						Cứ 50,000 Scoin sẽ nhận 1 Chìa khóa mở rương báu</p>
 								<p class="text-danger">(không giới hạn giá trị nạp & số lần nạp)</p>
 								<div class="alert alert-giaithuong">
-									<p class="font-iCielPantonBlack text-brown">Scoin đã nạp từ ví vào Game: <span class="text-dark font-iCielPantonBlack">10,005,000 Scoin</span></p>
-									<p class="font-iCielPantonBlack text-brown">Chìa khóa đã nhận: <span class="text-dark font-iCielPantonBlack">200 Chìa khóa</span> <img src={key_yellow_icon} width="32" class="img-fluid" /></p>
-									<p class="font-iCielPantonBlack text-brown">Nạp thêm <span class="text-dark font-iCielPantonBlack">45,000 Scoin</span> từ ví -> Game để nhận <span class="text-dark font-iCielPantonBlack">1 Chìa khóa</span> <img src={key_yellow_icon} width="32" class="img-fluid" /></p>
+									<p class="font-iCielPantonBlack text-brown">Scoin đã nạp từ ví vào Game: <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.scoinTopupWallet} Scoin</span></p>
+									<p class="font-iCielPantonBlack text-brown">Chìa khóa đã nhận: <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.turnTopupWallet} Chìa khóa</span> <img src={key_yellow_icon} width="32" class="img-fluid" /></p>
+									<p class="font-iCielPantonBlack text-brown">Nạp thêm <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.scoinBalanceRounding} Scoin</span> từ ví -> Game để nhận <span class="text-dark font-iCielPantonBlack">1 Chìa khóa</span> <img src={key_yellow_icon} width="32" class="img-fluid" /></p>
 								</div>
 								<p class="text-center w-75 mx-auto mt-4 mb-0"><a href="https://scoin.vn/nap-game" title="Nạp Game" target="_blank"><img src={btn_nap_game} class="img-fluid" /></a></p>
 								<p class="text-center w-75 mx-auto mt-2"><a href="" title="Mua chìa khóa dùng thẻ Scoin" data-toggle="modal" data-target="#MuaChiaKhoa"><img src={btn_mua_chia_khoa} class="img-fluid" /></a></p>
@@ -951,7 +970,7 @@ class Lucky_Rotation extends React.Component {
 									<p class="m-0 font-iCielPantonBlack text-brown">Hôm nay có thể mua:</p>
 									</div>
 									<div class="col-5 px-1 text-right">
-										<p class="p-0 m-0"><span class="font-iCielPantonBlack text-dark">{turnsBuyInfo} Chìa khóa</span> <img src={key_yellow_icon} width="16" class="img-fluid" /></p>
+										<p class="p-0 m-0"><span class="font-iCielPantonBlack text-dark">{turnsBuyInfo.turnCanBuy} Chìa khóa</span> <img src={key_yellow_icon} width="16" class="img-fluid" /></p>
 									</div> 
 								</div>           
 							</div>        
@@ -1380,17 +1399,18 @@ class Lucky_Rotation extends React.Component {
 
 					{/* <!-- Modal Header --> */}
 					<div className="modal-header border-bottom-0">
-						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
+						
 						<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" /></button>
 					</div>
 
 					{/* <!-- Modal body --> */}
 					<div className="modal-body">
-						<div className="table-responsive mt-2">              
+					<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
+						<div className="mt-2 text-center">              
 							<h5 className="text-thele lead text-center">Thông báo bảo trì!</h5>
 							<h5 className="text-thele lead text-center">Hệ thống đang được nâng cấp để tối ưu. Vui lòng quay lại sau 10 phút.</h5>
 							<h5 className="text-thele lead text-center">Xin lỗi vì sự bất tiện này</h5>
-							<button type="button" className="btn btn-xacnhan text-white btn-block text-center py-4" onClick={this.closeServerErr}>Xác nhận</button>
+							<button type="button" className="btn btn-danger mx-auto text-center my-3" onClick={this.closeServerErr}>Xác nhận</button>
 						</div>       
 					</div>
 
