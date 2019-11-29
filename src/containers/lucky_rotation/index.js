@@ -821,7 +821,10 @@ class Lucky_Rotation extends React.Component {
 						<tbody>
 							{listVinhDanh.map((obj, key) => (
 								<tr key={key}>
-									<td><strong>{obj.userName}</strong> <br />{obj.itemName} <img src={ruong_icons} width={20} height={20}/><br />{obj.date}</td>
+									{(obj.itemName!=='...')?(<td><strong>{obj.userName}</strong> <br />{obj.itemName} <img src={ruong_icons} width={20} height={20}/><br />{obj.date}</td>):(
+										<td><strong>{obj.userName}</strong> <br />{obj.itemName} <br />{obj.date}</td>
+									)}
+									
 								</tr>
 							))}
 						</tbody>
@@ -857,7 +860,10 @@ class Lucky_Rotation extends React.Component {
 								{listVinhDanh.map((obj, key) => (
 									<tr key={key}>
 										<td className="border-right-0">{obj.userName}</td>
-										<td className="border-left-0 border-right-0">{obj.itemName} <img src={ruong_icons} width={25} height={25} /></td>
+										{(obj.itemName!=='...')?(<td className="border-left-0 border-right-0">{obj.itemName} <img src={ruong_icons} width={25} height={25} /></td>):(
+											<td className="border-left-0 border-right-0">{obj.itemName}</td>
+										)}
+										
 										<td className="border-left-0">{obj.date}</td>
 									</tr>
 								))}
@@ -1149,13 +1155,13 @@ class Lucky_Rotation extends React.Component {
 									<table class="table mx-auto tbl-bang-vinh-danh-mobile text-center">
 										<thead class="font-iCielPantonLight font-weight-bold">
 										<tr>
-											<th><p class="card-text font-iCielPantonBlack text-brown-shadow font16">STT/Số lượng/Thời gian</p></th>
+											<th><p class="card-text font-iCielPantonBlack text-brown-shadow font16">Nạp Game/Số lượng/Thời gian</p></th>
 										</tr>
 										</thead>
 										<tbody>
 											{listKey.map((obj, key) => (
 												<tr key={key}>
-													<td class="font16"><strong>{obj.cardValue}</strong> <br />{obj.receivedTurn}<br />{obj.date}</td>
+													<td class="font16"><strong>{obj.cardValue}</strong> <br />{obj.receivedTurn} <img src={key_yellow_icon} width="20" class="img-fluid" /><br />{obj.date}</td>
 												</tr>
 											))}
 										
@@ -1179,7 +1185,7 @@ class Lucky_Rotation extends React.Component {
 									<table class="table table-borderless text-center mb-2">
 										<thead>
 										<tr>
-											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">STT</p></th>
+											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Nạp Game</p></th>
 											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Số lượng</p></th>
 											<th><p class="font-iCielPantonBlack text-brown-shadow font18 mb-0">Thời gian</p></th>
 										</tr>
@@ -1188,7 +1194,7 @@ class Lucky_Rotation extends React.Component {
 											{listKey.map((obj, key) => (
 												<tr key={key}>
 													<td className="border-right-0">{obj.cardValue}</td>
-													<td className="border-left-0 border-right-0">{obj.receivedTurn}</td>
+													<td className="border-left-0 border-right-0">{obj.receivedTurn} <img src={key_yellow_icon} width="20" class="img-fluid" /></td>
 													<td className="border-left-0">{obj.date}</td>
 												</tr>
 											))}
