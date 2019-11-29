@@ -128,7 +128,7 @@ class Lucky_Rotation extends React.Component {
 			scoinCard:false,
 			inputValue: '',
 			noti_mdt:false,
-			noti_tudo:true,
+			noti_tudo:false,
 			numberPage:3,
 			message_status:'',
 			data_auto:[],
