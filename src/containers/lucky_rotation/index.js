@@ -917,15 +917,15 @@ class Lucky_Rotation extends React.Component {
 						<p class="d-pc-none mt-n3">&rarr; Trả thẳng vào Ví Scoin của khách hàng</p>
 
 						{listCountBonus.map((obj, key) => (
-							<div class="alert alert-giaithuong row mx-0 py-0 pl-0 mb-1" key={key}>
+							<div class="alert alert-giaithuong row mx-0 py-0 pl-0 mb-2" key={key}>
 								<div class="col-md-2 col-6 pl-0">
 									<img src={ruong_icon} class="img-fluid" />
 								</div>
 								<div class="col-md-3 col-6 px-1 text-center pt-3">
-									{this.getNameScoin(obj.itemName)} <img src={logo_scoin} width="60" class="img-fluid" /> <br /> <span class="font-italic d-pc-none">Còn {obj.itemQuantityExist} giải</span>
+									{this.getNameScoin(obj.itemName)} <img src={logo_scoin} width="60" class="img-fluid" /> <br /> <span class="font-italic d-pc-none">Còn {obj.itemQuantityExist ? obj.itemQuantityExist.toLocaleString() :0} giải</span>
 								</div>
 								<div class="col-md-2 px-1 d-mobile-none text-center pt-3">
-									Còn {obj.itemQuantityExist} giải
+									Còn {obj.itemQuantityExist ? obj.itemQuantityExist.toLocaleString() :0} giải
 								</div>
 								<div class="col-md-5 px-1 d-mobile-none text-center pt-3">
 									Trả thẳng vào Ví Scoin của khách hàng
