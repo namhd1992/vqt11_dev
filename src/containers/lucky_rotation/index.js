@@ -187,7 +187,7 @@ class Lucky_Rotation extends React.Component {
 		}
 		this.getVinhDanh(1);
 		window.addEventListener('scroll', this.handleScroll);
-		$("#demo").carousel({interval: 2000});
+		$("#demo").carousel({interval: 3000});
 	}
 
 	componentWillUnmount() {
