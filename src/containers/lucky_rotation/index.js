@@ -159,7 +159,7 @@ class Lucky_Rotation extends React.Component {
 						this.getStatus(data.data.luckySpin);
 						this.setState({userTurnSpin:data.data.userTurnSpin, user:user, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), turnsBuyInfo:data.data.userTurnSpin.turnsBuyInfo, isLogin:true})
 					}else{
-						// $('#myModal11').modal('show');
+						$('#myModal11').modal('show');
 						this.setState({message_error:'Không lấy được dữ liệu người dùng. Vui lòng tải lại trang.'})
 					}
 				}else{
@@ -176,7 +176,7 @@ class Lucky_Rotation extends React.Component {
 						this.getStatus(data.data.luckySpin);
 						this.setState({userTurnSpin:data.data.userTurnSpin, itemOfSpin:data.data.itemOfSpin, luckySpin:data.data.luckySpin, turnsFree:(data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy), isLogin:false})
 					}else{
-						// $('#myModal11').modal('show');
+						$('#myModal11').modal('show');
 						this.setState({message_error:'Không lấy được dữ liệu.  Vui lòng tải lại trang.'})
 					}
 				}else{
