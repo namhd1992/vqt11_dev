@@ -944,7 +944,7 @@ class Lucky_Rotation extends React.Component {
 			</div>
 
 			{/* The Modal them luot */}
-			<div class="modal fade" id="ThemLuot">
+			<div class="modal fade" id="ThemLuot" style={{zIndex:10001}}>
 				<div class="modal-dialog">
 					<div class="modal-content bg-modal-content border-0">
 						<div class="modal-header border-bottom-0">
@@ -970,7 +970,7 @@ class Lucky_Rotation extends React.Component {
 			</div>
 
 			{/* The Modal chia khoa */}
-			<div class="modal fade" id="MuaChiaKhoa">
+			<div class="modal fade" id="MuaChiaKhoa" style={{zIndex:10002}}>
 				<div class="modal-dialog">
 					<div class="modal-content bg-modal-content border-0">
 						<div class="modal-header border-bottom-0">
@@ -1016,10 +1016,10 @@ class Lucky_Rotation extends React.Component {
 								<a class="nav-link active font16 px-2" data-toggle="tab" href="#TGiaiThuong" onClick={this.getBonus}>Giải thưởng</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link font16 px-2" data-toggle="tab" href="#TMoRuong" onClick={()=>this.getRuong(user,1)}>Mở Rương</a>
+								<a class="nav-link font16 px-2" data-toggle="tab" href="#TMoRuong" onClick={()=>this.getRuong(user,activeRuong)}>Mở Rương</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link font16 px-2" data-toggle="tab" href="#TNhanChiaKhoa" onClick={()=>this.getKey(user,1)}>Nhận chìa khóa</a>
+								<a class="nav-link font16 px-2" data-toggle="tab" href="#TNhanChiaKhoa" onClick={()=>this.getKey(user,activeKey)}>Nhận chìa khóa</a>
 							</li>
 							</ul>            
 							<div class="tab-content">
@@ -1034,7 +1034,7 @@ class Lucky_Rotation extends React.Component {
 										<tbody>
 											{listCodeBonus.map((obj, key) => (
 												<tr key={key}>
-													<td class="font16"><strong>{obj.userName}</strong> <br />{obj.itemName}<br />{obj.date}</td>
+													<td class="font16"><strong>{key + (activeBonus-1)*limit +1}</strong> <br />{obj.itemName}<br />{obj.date}</td>
 												</tr>
 											))}
 										</tbody>
@@ -1065,7 +1065,7 @@ class Lucky_Rotation extends React.Component {
 										<tbody>
 											{listCodeBonus.map((obj, key) => (
 												<tr key={key}>
-													<td className="border-right-0">{obj.userName}</td>
+													<td className="border-right-0">{key + (activeBonus-1)*limit +1}</td>
 													<td className="border-left-0 border-right-0">{obj.itemName}</td>
 													<td className="border-left-0">{obj.date}</td>
 												</tr>
@@ -1233,10 +1233,10 @@ class Lucky_Rotation extends React.Component {
 			<div className="modal-dialog">
 					<div className="modal-content popup-phanthuong">
 						<div className="modal-header border-bottom-0">	
-							<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" /></button>
+							<button type="button" className="close" data-dismiss="modal"><img src={close_icon} alt="Đóng" class="img-fluid"/></button>
 						</div>
 						<div className="modal-body">
-						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 mt-n5">Chúc mừng</h2>
+						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Chúc mừng</h2>
 							<div className="mt-2 text-center">              
 								<h5 className="text-thele lead text-center py-3">Bạn vừa tìm được <span style={{color:'red'}}>{itemBonus.name}</span> khi mở rương!</h5>
 								<h5 className="text-thele lead text-center py-3">(Phần thưởng đã được cộng trực tiếp vào ví Scoin.vn)</h5>
@@ -1273,7 +1273,7 @@ class Lucky_Rotation extends React.Component {
 			</div>
 
 			{/* <!-- The Modal Thông báo hết lượt--> */}
-			<div class="modal fade" id="myModal6">
+			<div class="modal fade" id="myModal6" style={{zIndex:10000}}>
 				<div class="modal-dialog">
 					<div class="modal-content bg-modal-content border-0">
 					<div class="modal-header border-bottom-0">
@@ -1284,7 +1284,7 @@ class Lucky_Rotation extends React.Component {
 							<p class="font-iCielPantonBlack text-brown pt-5">Bạn đã hết Chìa khóa.</p>
 							<p class="font-iCielPantonBlack text-brown">Nạp game từ ví Scoin được tặng Chìa khóa:
 					Cứ 50.000 Scoin sẽ nhận 1 Chìa khóa mở rương báu</p>
-							<p class="text-danger">(không giới hạn giá trị nạp & số lần nạp)</p>
+							<p style={{color:'red'}}>(không giới hạn giá trị nạp & số lần nạp)</p>
 							<div class="alert alert-giaithuong">
 								<p class="font-iCielPantonBlack text-brown">Scoin đã nạp từ ví vào Game: 10,005,000 Scoin</p>
 								<p class="font-iCielPantonBlack text-brown">Chìa khóa đã nhận: 200 Chìa khóa <img src={key_yellow_icon} width="20" class="img-fluid" /></p>
@@ -1381,7 +1381,7 @@ class Lucky_Rotation extends React.Component {
 						
 						</div>
 						<p className="text-thele">Vào <code style={{color:'red'}}><label style={{cursor:'pointer'}} onClick={()=>this.showModalCodeBonus(1)}>Lịch sử</label></code> để xem chi tiết.</p>
-						<p className="text-thele text-center"><code style={{color:'red'}}>Đang mở tự động <span className="spinner-grow spinner-grow-sm"></span></code></p>
+						<p className="text-thele text-center"><code style={{color:'red'}} className="font-iCielPantonBlack">Đang mở tự động <span className="spinner-grow spinner-grow-sm"></span></code></p>
 						
 					</div>
 
