@@ -1286,9 +1286,9 @@ class Lucky_Rotation extends React.Component {
 					Cứ 50.000 Scoin sẽ nhận 1 Chìa khóa mở rương báu</p>
 							<p style={{color:'red'}}>(không giới hạn giá trị nạp & số lần nạp)</p>
 							<div class="alert alert-giaithuong">
-								<p class="font-iCielPantonBlack text-brown">Scoin đã nạp từ ví vào Game: 10,005,000 Scoin</p>
-								<p class="font-iCielPantonBlack text-brown">Chìa khóa đã nhận: 200 Chìa khóa <img src={key_yellow_icon} width="20" class="img-fluid" /></p>
-								<p class="font-iCielPantonBlack text-brown">Nạp thêm 45,000 Scoin từ ví -> Game để nhận 1 Chìa khóa <img src={key_yellow_icon} width="20" class="img-fluid" /></p>
+							    <p class="font-iCielPantonBlack text-brown">Scoin đã nạp từ ví vào Game: <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.scoinTopupWallet ? turnsBuyInfo.scoinTopupWallet.toLocaleString() : 0} Scoin</span></p>
+							    <p class="font-iCielPantonBlack text-brown">Chìa khóa đã nhận: <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.turnTopupWallet ? turnsBuyInfo.turnTopupWallet.toLocaleString() : 0} Chìa khóa</span> <img src={key_yellow_icon} width="20" class="img-fluid" /></p>
+								<p class="font-iCielPantonBlack text-brown">Nạp thêm <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0} Scoin</span> từ ví -> Game để nhận <span class="text-dark font-iCielPantonBlack">1 Chìa khóa</span> <img src={key_yellow_icon} width="20" class="img-fluid" /></p>
 							</div>
 							<p class="text-center w-75 mx-auto mt-4 mb-0"><a href="https://scoin.vn/nap-game" title="Nạp Game" target="_blank"><img src={btn_nap_game} class="img-fluid" /></a></p>
 							<p class="text-center w-75 mx-auto mt-2"><a href="" title="Mua chìa khóa dùng thẻ Scoin" data-toggle="modal" data-target="#MuaChiaKhoa"><img src={btn_mua_chia_khoa} class="img-fluid" /></a></p>
