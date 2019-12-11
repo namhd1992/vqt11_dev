@@ -152,7 +152,7 @@ class Lucky_Rotation extends React.Component {
 	componentDidMount(){
 		var user = JSON.parse(localStorage.getItem("user"));
 		if (user !== null) {
-			this.props.getRotationDetailDataUser(user.access_token, 120).then(()=>{
+			this.props.getRotationDetailDataUser(user.access_token, 119).then(()=>{
 				var data=this.props.dataRotationWithUser;
 				if(data!==undefined){
 					if(data.status==='01'){
@@ -169,7 +169,7 @@ class Lucky_Rotation extends React.Component {
 				
 			});
 		} else {
-			this.props.getRotationDetailData(120).then(()=>{
+			this.props.getRotationDetailData(119).then(()=>{
 				var data=this.props.dataRotation;
 				if(data!==undefined){
 					if(data.status==='01'){
@@ -384,7 +384,7 @@ class Lucky_Rotation extends React.Component {
 	getDetailData=()=>{
 		const {auto}=this.state;
 		var user = JSON.parse(localStorage.getItem("user"));
-		this.props.getRotationDetailDataUser(user.access_token, 120).then(()=>{
+		this.props.getRotationDetailDataUser(user.access_token, 119).then(()=>{
 			var data=this.props.dataRotationWithUser;
 			if(data!==undefined){
 				var turnsFree=data.data.userTurnSpin.turnsFree+data.data.userTurnSpin.turnsBuy;
@@ -531,7 +531,7 @@ class Lucky_Rotation extends React.Component {
 
 	getVinhDanh=(pageNumber)=>{
 		const {limit}=this.state;
-		this.props.getVinhDanh(120, 10, (pageNumber-1)).then(()=>{
+		this.props.getVinhDanh(119, 10, (pageNumber-1)).then(()=>{
 			var data=this.props.dataVinhDanh;
 			if(data!==undefined){
 				var n=10-data.data.length;
