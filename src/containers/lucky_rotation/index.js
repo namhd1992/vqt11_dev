@@ -709,7 +709,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 					<div id="demo" class="carousel slide box-slider" data-ride="carousel">
 						<div class="carousel-inner">
-							<div class="carousel-item active mx-auto">
+							<div class="carousel-item active">
 								<img src={banner_slider_1} class="img-fluid" />
 								<div class="carousel-caption carousel-fix">
 									<p>Chìa khóa còn lại: {turnsFree ? turnsFree.toLocaleString() :0} <img src={key_yellow_icon}  width="20"/></p>
