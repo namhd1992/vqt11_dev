@@ -992,7 +992,7 @@ class Lucky_Rotation extends React.Component {
 								</div>           
 							</div>        
 							<div class="mx-auto pt-2">
-								<p class="text-center w-50 mx-auto mt-3"><a href="#" title="Xác nhận mua"><img src={btn_xac_nhan_mua} class="img-fluid xacNhan" /></a></p>
+								<p class="text-center w-50 mx-auto mt-3"><a href="http://sandbox.scoin.vn/nap-vao-game?GameId=330335" target="_blank" title="Xác nhận mua"><img src={btn_xac_nhan_mua} class="img-fluid xacNhan" /></a></p>
 							</div>
 						</div>	  
 					</div>
