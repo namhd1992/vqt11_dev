@@ -746,7 +746,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 					<div class="float-left">
 						<ul class="nav flex-column text-float-left">
-							<li class="mt-5"><a href="https://sandbox.scoin.vn/nap-game" title="Nạp Game" target="_blank">&nbsp;</a></li>
+							<li class="mt-5"><a href="http://sandbox.scoin.vn/nap-vao-game?GameId=330281" title="Nạp Game" target="_blank">&nbsp;</a></li>
 							<li class="mt-3"><a href="#TheLe" title="Thể lệ">&nbsp;</a></li>
 							<li class="mt-3"><a href="#VinhDanh" title="Vinh danh">&nbsp;</a></li>
 						</ul>
@@ -896,7 +896,7 @@ class Lucky_Rotation extends React.Component {
 				<div class="container pt-3">
 					<a href="https://daily.scoin.vn/huong-dan-mua-the/" title="Hướng dẫn mua thẻ" target="_blank"><img src={btn_huong_dan_mua_the} class="img-fluid img-mobile first-img" alt="Hướng dẫn mua thẻ" /></a>
 					<a href="https://www.facebook.com/scoinvtcmobile/" title="Nhận thông báo sự kiện" target="_blank"><img src={btn_nhan_tb_sk} class="img-fluid img-mobile" alt="Nhận thông báo sự kiện" /></a>
-					<a href="https://scoin.vn/nap-game" title="Nạp Game" target="_blank"><img src={btn_nap_scoin} class="img-fluid img-mobile" alt="Nạp Game" /></a>
+					<a href="http://sandbox.scoin.vn/nap-vao-game?GameId=330281" title="Nạp Game" target="_blank"><img src={btn_nap_scoin} class="img-fluid img-mobile" alt="Nạp Game" /></a>
 					<a href="tel:19001104" title="Hotline" target="_blank"><img src={btn_hotline_hotro} class="img-fluid img-mobile" alt="Hotline" /></a>
 				</div>
 				<div class="container mt-5">
@@ -961,7 +961,7 @@ class Lucky_Rotation extends React.Component {
 									<p class="font-iCielPantonBlack text-brown">Chìa khóa đã nhận: <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.turnTopupWallet ? turnsBuyInfo.turnTopupWallet.toLocaleString() : 0} Chìa khóa</span> <img src={key_yellow_icon} width="20" class="img-fluid" /></p>
 									<p class="font-iCielPantonBlack text-brown">Nạp thêm <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0} Scoin</span> từ ví -> Game để nhận <span class="text-dark font-iCielPantonBlack">1 Chìa khóa</span> <img src={key_yellow_icon} width="20" class="img-fluid" /></p>
 								</div>
-								<p class="text-center w-75 mx-auto mt-4 mb-0"><a href="https://scoin.vn/nap-game" title="Nạp Game" target="_blank"><img src={btn_nap_game} class="img-fluid napGame" /></a></p>
+								<p class="text-center w-75 mx-auto mt-4 mb-0"><a href="http://sandbox.scoin.vn/nap-vao-game?GameId=330281" title="Nạp Game" target="_blank"><img src={btn_nap_game} class="img-fluid napGame" /></a></p>
 								<p class="text-center w-75 mx-auto mt-2"><a href="" title="Mua chìa khóa dùng thẻ Scoin" data-toggle="modal" data-target="#MuaChiaKhoa"><img src={btn_mua_chia_khoa} class="img-fluid buyKey" /></a></p>
 							</div>
 						</div>	  
@@ -1290,7 +1290,7 @@ class Lucky_Rotation extends React.Component {
 							    <p class="font-iCielPantonBlack text-brown">Chìa khóa đã nhận: <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.turnTopupWallet ? turnsBuyInfo.turnTopupWallet.toLocaleString() : 0} Chìa khóa</span> <img src={key_yellow_icon} width="20" class="img-fluid" /></p>
 								<p class="font-iCielPantonBlack text-brown">Nạp thêm <span class="text-dark font-iCielPantonBlack">{turnsBuyInfo.scoinBalanceRounding ? turnsBuyInfo.scoinBalanceRounding.toLocaleString(): 0} Scoin</span> từ ví -> Game để nhận <span class="text-dark font-iCielPantonBlack">1 Chìa khóa</span> <img src={key_yellow_icon} width="20" class="img-fluid" /></p>
 							</div>
-							<p class="text-center w-75 mx-auto mt-4 mb-0"><a href="https://scoin.vn/nap-game" title="Nạp Game" target="_blank"><img src={btn_nap_game} class="img-fluid" /></a></p>
+							<p class="text-center w-75 mx-auto mt-4 mb-0"><a href="http://sandbox.scoin.vn/nap-vao-game?GameId=330281" title="Nạp Game" target="_blank"><img src={btn_nap_game} class="img-fluid" /></a></p>
 							<p class="text-center w-75 mx-auto mt-2"><a href="" title="Mua chìa khóa dùng thẻ Scoin" data-toggle="modal" data-target="#MuaChiaKhoa"><img src={btn_mua_chia_khoa} class="img-fluid" /></a></p>
 						</div>
 					</div>	  
