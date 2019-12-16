@@ -602,10 +602,12 @@ class Lucky_Rotation extends React.Component {
 
 	closeModal7=()=>{
 		$('#myModal7').modal('hide');
+		this.btnStart()
 	}
 
 	closeModal4=()=>{
 		$('#myModal4').modal('hide');
+		this.btnStart();
 	}
 
 
@@ -618,7 +620,7 @@ class Lucky_Rotation extends React.Component {
 
 	handlePageChangeKey=(pageNumber)=> {
 		var user = JSON.parse(localStorage.getItem("user"));
-		this.setState({activeHistory: pageNumber},()=>{
+		this.setState({activeKey: pageNumber},()=>{
 			this.getKey(user, pageNumber)
 		})
 	}
@@ -992,6 +994,7 @@ class Lucky_Rotation extends React.Component {
 								</div>           
 							</div>        
 							<div class="mx-auto pt-2">
+								<p style={{color:'red', textAlign:"center", marginBottom:10}}>Khi mua vượt quá giới hạn trong ngày, Scoin thừa sẽ được cộng vào ví</p>
 								<p class="text-center w-50 mx-auto mt-3"><a href="http://sandbox.scoin.vn/nap-vao-game?GameId=330335" target="_blank" title="Xác nhận mua"><img src={btn_xac_nhan_mua} class="img-fluid xacNhan" /></a></p>
 							</div>
 						</div>	  
@@ -1241,7 +1244,7 @@ class Lucky_Rotation extends React.Component {
 								<h5 className="text-thele lead text-center py-3">Bạn vừa tìm được <span style={{color:'red'}}>{itemBonus.name}</span> khi mở rương!</h5>
 								<h5 className="text-thele lead text-center py-3">(Phần thưởng đã được cộng trực tiếp vào ví Scoin.vn)</h5>
 								<span className="text-center">Xem <a className="underline" style={{color:"#2d9bf0", cursor:'pointer'}} onClick={()=>this.showModalCodeBonus(1)}>Lịch sử</a></span><br></br>
-								<button type="button" className="btn btn-danger mx-auto text-center my-3" onClick={this.closeModal4}>Xác nhận</button>
+								<button type="button" className="btn mx-auto text-center my-3" style={{backgroundColor:'#1ac6ff', color:'#fff'}} onClick={this.closeModal4}>Mở tiếp 1 rương</button>
 							</div>       
 						</div>
 
@@ -1311,11 +1314,11 @@ class Lucky_Rotation extends React.Component {
 					</div>
 
 					<div className="modal-body">
-						<h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2>
+						{/* <h2 class="font-iCielPantonBlack text-brown-shadow text-uppercase text-center pb-0 w-75 mx-auto mt-n5">Thông Báo</h2> */}
 						<div className="mt-2 text-center">
 							<h5 className="text-thele lead text-center py-2">Rương rỗng...</h5>              
 							<h5 className="text-thele lead text-center py-3">Chúc bạn may mắn lần sau</h5>
-							<button type="button" className="btn btn-danger mx-auto text-center my-3" onClick={this.closeModal7}>Xác Nhận</button>
+							<button type="button" className="btn mx-auto text-center my-3" style={{backgroundColor:'#1ac6ff', color:'#fff'}} onClick={this.closeModal7}>Mở tiếp 1 rương</button>
 						</div>       
 					</div>
 
