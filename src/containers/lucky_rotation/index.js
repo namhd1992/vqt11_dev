@@ -1284,7 +1284,7 @@ class Lucky_Rotation extends React.Component {
 					</div>
 					<div class="modal-body font16">
 						<div class="w-75 mx-auto">
-							<p class="font-iCielPantonBlack text-brown pt-5">Bạn đã hết Chìa khóa.</p>
+						<h3 class="font-iCielPantonBlack text-brown pt-5">HẾT CHÌA KHÓA</h3>
 							<p class="font-iCielPantonBlack text-brown">Nạp game từ ví Scoin được tặng Chìa khóa:
 					Cứ 50.000 Scoin sẽ nhận 1 Chìa khóa mở rương báu</p>
 							<p style={{color:'red'}}>(không giới hạn giá trị nạp & số lần nạp)</p>
