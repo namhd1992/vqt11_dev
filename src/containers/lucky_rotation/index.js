@@ -393,7 +393,7 @@ class Lucky_Rotation extends React.Component {
 						if(auto){
 							var timeout =setTimeout(() => {
 								this.start();
-							}, 2000);
+							}, 200);
 							this.setState({timeout: timeout});	
 						}
 					}else{
@@ -786,7 +786,7 @@ class Lucky_Rotation extends React.Component {
 							<div class="card mx-0 bg-transparent border-0">
 								<div class="card-body text-center">
 									<h4><img src={img_step2} class="img-fluid" alt="Bước 2" /></h4>
-									<p class="card-text font-iCielPantonBlack text-brown-shadow pt-3 font18">Truy cập trang sự kiện <br /><a href="#" title="Kho báu Scoin" class="font-iCielPantonBlack text-brown-shadow">www.khobauscoin.splay.vn</a></p>
+									<p class="card-text font-iCielPantonBlack text-brown-shadow pt-3 font18">Truy cập trang sự kiện <br /><a title="Kho báu Scoin" class="font-iCielPantonBlack text-brown-shadow">www.khobauscoin.splay.vn</a></p>
 									<p class="py-2"><img src={arrow_down} alt="" /></p>
 									<p class="card-text font-iCielPantonBlack text-brown-shadow font18">Mở rương báu Scoin</p>
 								</div>
@@ -796,7 +796,7 @@ class Lucky_Rotation extends React.Component {
 									<h4><img src={img_step3} class="img-fluid"  alt="Bước 3" /></h4>
 									<p class="card-text font-iCielPantonBlack text-brown-shadow pt-3 font18">Nhận thưởng Scoin</p>
 									<p class="py-2"><img src={arrow_down} alt="" /></p>
-									<p class="card-text font-iCielPantonBlack text-brown-shadow font18">Ví <a class="font-iCielPantonBlack text-brown-shadow" href="#" title="Scoin" target="_blank">www.scoin.vn</a></p>
+									<p class="card-text font-iCielPantonBlack text-brown-shadow font18">Ví <a class="font-iCielPantonBlack text-brown-shadow" href="http://sandbox.scoin.vn/" title="Scoin" target="_blank">www.scoin.vn</a></p>
 								</div>
 							</div>         
 							</div>
@@ -1276,7 +1276,7 @@ class Lucky_Rotation extends React.Component {
 			</div>
 
 			{/* <!-- The Modal Thông báo hết lượt--> */}
-			<div class="modal fade" id="myModal6" style={{zIndex:10000}}>
+			<div class="modal fade" id="myModal6" style={{zIndex:10001}}>
 				<div class="modal-dialog">
 					<div class="modal-content bg-modal-content border-0">
 					<div class="modal-header border-bottom-0">
